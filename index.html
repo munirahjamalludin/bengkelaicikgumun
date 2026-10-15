@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merdeka Junior: Malaysia's Independence Heroes</title>
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --primary-red: #cc0000;
+            --primary-blue: #003366;
+            --accent-yellow: #ffcc00;
+            --pure-white: #ffffff;
+            --bg-light: #fdfdfd;
+            --text-dark: #222222;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        /* Navbar */
+        header {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-blue));
+            color: var(--pure-white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .flag-icon {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            min-height: 48px;
+            min-width: 48px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--accent-yellow);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--pure-white);
+            font-size: 2rem;
+            cursor: pointer;
+            min-height: 48px;
+            min-width: 48px;
+        }
+
+        /* Main Layout & Page Sections */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 80vh;
+            padding: 2rem 1rem;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #ffe6e6, #e6f0ff);
+            border: 4px solid var(--accent-yellow);
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .badge {
+            background-color: var(--primary-red);
+            color: var(--pure-white);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-audio, .btn-learn-more, .btn-popup {
+            min-height: 48px;
+            min-width: 48px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: var(--pure-white);
+        }
+
+        .btn-primary:hover {
+            background-color: #a30000;
+            transform: scale(1.05);
+        }
+
+        .btn-audio {
+            background-color: var(--accent-yellow);
+            color: var(--text-dark);
+        }
+
+        .btn-audio:hover {
+            background-color: #e6b800;
+            transform: scale(1.05);
+        }
+
+        .hero-illustration {
+            font-size: 5rem;
+            text-align: center;
+            flex: 0 0 auto;
+            animation: wave 2s infinite ease-in-out;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            background-color: #fff9e6;
+            border-left: 8px solid var(--accent-yellow);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .welcome-section h2 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        /* Trio Section */
+        .trio-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .trio-section h2 {
+            color: var(--primary-blue);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-desc {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .trio-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .hero-card {
+            background: var(--card-bg);
+            border: 3px solid #eee;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .hero-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-blue);
+        }
+
+        .card-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .bg-red { background-color: #ffe6e6; color: var(--primary-red); }
+        .bg-blue { background-color: #e6f0ff; color: var(--primary-blue); }
+        .bg-yellow { background-color: #fff9e6; color: #b38600; }
+
+        .hero-card h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .catchy-desc {
+            color: #555;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .btn-learn-more {
+            background-color: var(--primary-blue);
+            color: var(--pure-white);
+            width: 100%;
+        }
+
+        .btn-learn-more:hover {
+            background-color: #002244;
+        }
+
+        /* Timeline Page */
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-header h2 {
+            color: var(--primary-blue);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 6px;
+            background-color: var(--accent-yellow);
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 50%;
+            padding: 0 2rem;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            top: 15px;
+            width: 48px;
+            height: 48px;
+            background-color: var(--primary-red);
+            color: var(--pure-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 0 0 4px var(--pure-white), var(--shadow);
+            z-index: 10;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-marker {
+            right: -24px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-marker {
+            left: -24px;
+        }
+
+        .timeline-content-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 2px solid #eee;
+            transition: var(--transition);
+        }
+
+        .timeline-content-card:hover {
+            border-color: var(--primary-red);
+            transform: translateY(-4px);
+        }
+
+        .timeline-date {
+            background-color: #e6f0ff;
+            color: var(--primary-blue);
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content-card h3 {
+            color: var(--primary-blue);
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .timeline-content-card p {
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-popup {
+            background-color: var(--accent-yellow);
+            color: var(--text-dark);
+        }
+
+        .btn-popup:hover {
+            background-color: #e6b800;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeInModal 0.3s ease;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--pure-white);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #888;
+            min-height: 48px;
+            min-width: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-red);
+        }
+
+        .modal-body-content h3 {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-role {
+            color: var(--primary-red);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .modal-section-title {
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-top: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .modal-quote {
+            background: #f9f9f9;
+            border-left: 4px solid var(--primary-red);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            font-style: italic;
+            border-radius: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-blue);
+            color: var(--pure-white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            font-size: 1rem;
+        }
+
+        /* Responsive Styles for Mobile */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-blue);
+                padding: 1rem 0;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                text-align: center;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 2rem 1rem;
+            }
+
+            .hero-banner h1 {
+                font-size: 2rem;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            /* Vertical Timeline for Mobile */
+            .timeline-line {
+                left: 24px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 0;
+                text-align: left !important;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-marker {
+                left: 0 !important;
+                right: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo-container">
+                <span class="flag-icon" aria-hidden="true">🇲🇾</span>
+                <span class="logo-text">Merdeka Junior</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active" data-target="home">Home</a></li>
+                <li><a href="#heroes" class="nav-link" data-target="heroes">The Heroes</a></li>
+                <li><a href="#timeline" class="nav-link" data-target="timeline">Journey to Merdeka</a></li>
+            </ul>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation menu">☰</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page 1: Introduction Page ("The Spirit of Merdeka") -->
+        <section id="home" class="page-section active">
+            <!-- Hero Banner -->
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <div class="badge">🇲🇾 Merdeka Junior</div>
+                    <h1>How did Malaysia become a free country?</h1>
+                    <p class="hero-subtitle">Meet the three amazing leaders who made it happen!</p>
+                    <div class="hero-actions">
+                        <button class="btn-primary" id="start-journey-btn">Explore Journey</button>
+                        <button class="btn-audio" id="read-aloud-btn" aria-label="Read welcome message aloud">🔊 Read Aloud</button>
+                    </div>
+                </div>
+                <div class="hero-illustration" aria-hidden="true">
+                    <div class="flag-waving">⭐ 🌙 🇲🇾</div>
+                </div>
+            </div>
+
+            <!-- Welcome & Spirit Section -->
+            <section class="welcome-section">
+                <h2>Welcome, Young Explorers!</h2>
+                <p id="welcome-text">Long ago, Malaysia wasn't a free country yet. Brave people worked together day and night so that we could live happily in peace and harmony. Today, we celebrate Merdeka (Independence) to remember how wonderful freedom is!</p>
+            </section>
+
+            <!-- The Trio Overview Cards Section -->
+            <section id="heroes" class="trio-section">
+                <h2>Meet the Founding Fathers</h2>
+                <p class="section-desc">Click "Learn More" to discover each hero's superpower story!</p>
+                <div class="trio-cards-container">
+                    <!-- Hero 1: Tunku Abdul Rahman -->
+                    <div class="hero-card" data-hero="tunku">
+                        <div class="card-avatar bg-red" aria-hidden="true">👑</div>
+                        <h3>Tunku Abdul Rahman</h3>
+                        <p class="catchy-desc">The cheerful leader who proudly shouted "Merdeka!" seven times!</p>
+                        <button class="btn-learn-more" data-hero="tunku">Learn More</button>
+                    </div>
+                    <!-- Hero 2: Tun Tan Cheng Lock -->
+                    <div class="hero-card" data-hero="tan-cheng-lock">
+                        <div class="card-avatar bg-blue" aria-hidden="true">🤝</div>
+                        <h3>Tun Tan Cheng Lock</h3>
+                        <p class="catchy-desc">The wise builder who believed working together like a family is our greatest superpower!</p>
+                        <button class="btn-learn-more" data-hero="tan-cheng-lock">Learn More</button>
+                    </div>
+                    <!-- Hero 3: Tun V.T. Sambanthan -->
+                    <div class="hero-card" data-hero="sambanthan">
+                        <div class="card-avatar bg-yellow" aria-hidden="true">🌟</div>
+                        <h3>Tun V.T. Sambanthan</h3>
+                        <p class="catchy-desc">The humble freedom fighter who stood shoulder-to-shoulder with pride in his roots!</p>
+                        <button class="btn-learn-more" data-hero="sambanthan">Learn More</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Page 2: Timeline Page ("Journey to Merdeka") -->
+        <section id="timeline" class="page-section">
+            <div class="timeline-header">
+                <h2>Journey to Merdeka</h2>
+                <p>Walk through the milestones leading up to August 31, 1957, and see how our heroes united communities!</p>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-line" aria-hidden="true"></div>
+                
+                <!-- Milestone 1 -->
+                <div class="timeline-item" data-milestone="1">
+                    <div class="timeline-marker" aria-hidden="true">1</div>
+                    <div class="timeline-content-card">
+                        <span class="timeline-date">Alliance Party Formation</span>
+                        <h3>Communities & Cooperation</h3>
+                        <p>Our three heroes united different communities and formed the Alliance Party, showing that friendship and teamwork can achieve great things.</p>
+                        <button class="btn-popup" data-milestone="1">Discover Story 📖</button>
+                    </div>
+                </div>
+
+                <!-- Milestone 2 -->
+                <div class="timeline-item" data-milestone="2">
+                    <div class="timeline-marker" aria-hidden="true">2</div>
+                    <div class="timeline-content-card">
+                        <span class="timeline-date">Negotiating Freedom</span>
+                        <h3>Mission to London</h3>
+                        <p>Tunku and his team traveled all the way to London to negotiate peace and independence for Malaya with bright hopes.</p>
+                        <button class="btn-popup" data-milestone="2">Discover Story 📖</button>
+                    </div>
+                </div>
+
+                <!-- Milestone 3 -->
+                <div class="timeline-item" data-milestone="3">
+                    <div class="timeline-marker" aria-hidden="true">3</div>
+                    <div class="timeline-content-card">
+                        <span class="timeline-date">August 31, 1957</span>
+                        <h3>Declaration of Independence</h3>
+                        <p>The joyous day arrived! Tunku Abdul Rahman famously shouted "Merdeka!" seven times at Stadium Merdeka, marking the birth of a free Malaysia.</p>
+                        <button class="btn-popup" data-milestone="3">Discover Story 📖</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Merdeka Junior: Malaysia's Independence Heroes &copy; 2026 | Educational Web Application for Young Learners</p>
+    </footer>
+
+    <!-- Hero Modal -->
+    <div id="hero-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-hero-title">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div id="modal-hero-body">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline Modal -->
+    <div id="timeline-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-timeline-title">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div id="modal-timeline-body">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation handling
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageSections = document.querySelectorAll('.page-section');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinksContainer = document.querySelector('.nav-links');
+            const startJourneyBtn = document.getElementById('start-journey-btn');
+
+            function switchPage(targetId) {
+                navLinks.forEach(link => {
+                    if (link.getAttribute('data-target') === targetId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                pageSections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.getAttribute('data-target');
+                    switchPage(target);
+                    navLinksContainer.classList.remove('active');
+                });
+            });
+
+            if (startJourneyBtn) {
+                startJourneyBtn.addEventListener('click', () => {
+                    switchPage('timeline');
+                });
+            }
+
+            if (mobileMenuBtn && navLinksContainer) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    navLinksContainer.classList.toggle('active');
+                });
+            }
+
+            // Read Aloud Feature (Web Speech API)
+            const readAloudBtn = document.getElementById('read-aloud-btn');
+            const welcomeText = document.getElementById('welcome-text');
+
+            if (readAloudBtn && welcomeText) {
+                readAloudBtn.addEventListener('click', () => {
+                    if ('speechSynthesis' in window) {
+                        window.speechSynthesis.cancel();
+                        const textToSpeak = welcomeText.innerText;
+                        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                        utterance.rate = 0.9;
+                        utterance.pitch = 1.1;
+                        window.speechSynthesis.speak(utterance);
+                    } else {
+                        alert('Audio read-aloud is not supported on your browser.');
+                    }
+                });
+            }
+
+            // Hero Data Database (Strictly from PRD)
+            const heroesData = {
+                'tunku': {
+                    name: 'Tunku Abdul Rahman Putra Al-Haj',
+                    title: '"Bapa Kemerdekaan" (Father of Independence)',
+                    role: 'Malaysia’s First Prime Minister and leader of the independence movement.',
+                    childAngle: 'Known for his cheerful personality, leadership, and famously shouting "Merdeka!" seven times on Independence Day.',
+                    achievement: 'Uniting different races and successfully negotiating independence from the British peacefully.',
+                    quote: '"Merdeka! Merdeka! Merdeka! Merdeka! Merdeka! Merdeka! Merdeka!"'
+                },
+                'tan-cheng-lock': {
+                    name: 'Tun Tan Cheng Lock',
+                    title: 'Co-Founder of Independence & MCA Leader',
+                    role: 'Businessman, community leader, and fierce advocate for multiracial unity.',
+                    childAngle: 'Believed that people of different backgrounds working together like a family is Malaysia\'s greatest superpower.',
+                    achievement: 'Worked hand-in-hand with Tunku to build a united front for all Malayans.',
+                    quote: '"Our unity is our greatest strength and superpower as one family."'
+                },
+                'sambanthan': {
+                    name: 'Tun V.T. Sambanthan',
+                    title: 'Freedom Fighter & MIC Leader',
+                    role: 'Leader of the Indian community and prominent independence negotiator.',
+                    childAngle: 'Known for his humility, dedication to unity, and wearing traditional attire to show pride in his cultural roots.',
+                    achievement: 'Played a crucial role in the Alliance coalition talks and stood shoulder-to-shoulder with Tunku and Tan Cheng Lock.',
+                    quote: '"Standing shoulder-to-shoulder, we build a proud and free nation together."'
+                }
+            };
+
+            // Timeline Milestone Data (Strictly from PRD)
+            const timelineData = {
+                '1': {
+                    title: 'Formation of Communities & Cooperation',
+                    date: 'Alliance Party Formation',
+                    desc: 'Our three amazing leaders united different communities across Malaya. By working together through the Alliance Party, they showed that friendship and cooperation are the keys to building a peaceful nation.',
+                    quote: '"Together, we are stronger than apart."'
+                },
+                '2': {
+                    title: 'Mission to London',
+                    date: 'Negotiating Independence',
+                    desc: 'Tunku Abdul Rahman and his dedicated team undertook a historic journey all the way to London to negotiate peaceful independence with British leaders. With patience and teamwork, they succeeded!',
+                    quote: '"Negotiating with courage and a smile for a free future."'
+                },
+                '3': {
+                    title: 'Declaration of Independence',
+                    date: 'August 31, 1957',
+                    desc: 'The glorious day finally arrived! At Stadium Merdeka, Tunku Abdul Rahman proudly shouted "Merdeka!" seven times, echoing through the cheering crowd as Malaysia was born as a free and sovereign nation.',
+                    quote: '"Merdeka! Merdeka! Merdeka! Merdeka! Merdeka! Merdeka! Merdeka!"'
+                }
+            };
+
+            // Modal Handling
+            const heroModal = document.getElementById('hero-modal');
+            const heroModalBody = document.getElementById('modal-hero-body');
+            const timelineModal = document.getElementById('timeline-modal');
+            const timelineModalBody = document.getElementById('modal-timeline-body');
+            const modalCloseButtons = document.querySelectorAll('.modal-close');
+
+            // Open Hero Modals
+            const learnMoreButtons = document.querySelectorAll('.btn-learn-more, .hero-card');
+            learnMoreButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const heroKey = btn.getAttribute('data-hero') || btn.closest('.hero-card').getAttribute('data-hero');
+                    const data = heroesData[heroKey];
+                    if (data) {
+                        heroModalBody.innerHTML = `
+                            <div class="modal-body-content">
+                                <h3>${data.name}</h3>
+                                <span class="modal-role">${data.title}</span>
+                                
+                                <div class="modal-section-title">Role:</div>
+                                <p>${data.role}</p>
+
+                                <div class="modal-section-title">Child-Friendly Story:</div>
+                                <p>${data.childAngle}</p>
+
+                                <div class="modal-section-title">Key Achievement:</div>
+                                <p>${data.achievement}</p>
+
+                                <div class="modal-quote">
+                                    ${data.quote}
+                                </div>
+                            </div>
+                        `;
+                        heroModal.classList.add('active');
+                    }
+                });
+            });
+
+            // Open Timeline Modals
+            const timelinePopupButtons = document.querySelectorAll('.btn-popup');
+            timelinePopupButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const milestoneKey = btn.getAttribute('data-milestone');
+                    const data = timelineData[milestoneKey];
+                    if (data) {
+                        timelineModalBody.innerHTML = `
+                            <div class="modal-body-content">
+                                <span class="timeline-date">${data.date}</span>
+                                <h3>${data.title}</h3>
+                                <p style="margin-top: 1rem;">${data.desc}</p>
+                                <div class="modal-quote">
+                                    ${data.quote}
+                                </div>
+                            </div>
+                        `;
+                        timelineModal.classList.add('active');
+                    }
+                });
+            });
+
+            // Close Modals
+            modalCloseButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    heroModal.classList.remove('active');
+                    timelineModal.classList.remove('active');
+                });
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === heroModal) {
+                    heroModal.classList.remove('active');
+                }
+                if (e.target === timelineModal) {
+                    timelineModal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
